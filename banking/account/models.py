@@ -52,7 +52,42 @@ class SavingsAccount(Account):
 
 class CustodyAccount(Account):
     refCheckAcc = models.ForeignKey(
-            "CheckingAccount",
-            on_delete=models.PROTECT,
-            related_name="custody_accounts"
-        )
+        "CheckingAccount",
+        on_delete=models.PROTECT,
+        related_name="custody_accounts",
+    )
+    stocks = models.ManyToManyField(
+        Stock,
+        through="Holding",
+        related_name="custody_accounts",
+        blank=True,
+    )
+
+class PurchasedStock(models.Model):
+    custody_account = models.ForeignKey(
+        CustodyAccount,
+        on_delete=models.CASCADE,
+        related_name="purchased_stocks",
+    )
+    stock = models.ForeignKey(
+        "stockmarket.Stock",
+        on_delete=models.PROTECT,
+        related_name="purchase_lots",
+    )
+
+    purchase_date = models.DateTimeField()
+    purchase_price = models.DecimalField(max_digits=15, decimal_places=4)
+    purchase_quantity = models.PositiveIntegerField()
+    remaining_quantity = models.PositiveIntegerField()
+    
+    def getRemainingCost(self) -> Decimal:
+        ...
+        
+    def getMarketValue(self) -> Decimal:
+        ...
+        
+    def reduceQuantity(self, quantity : int) -> None:
+        ...
+    
+    def increaseQuantity(self, quantity : int) -> None:
+        ...
