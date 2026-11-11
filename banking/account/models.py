@@ -57,12 +57,14 @@ class CustodyAccount(Account):
         on_delete=models.PROTECT,
         related_name="custody_accounts",
     )
+    '''
     stocks = models.ManyToManyField(
         Stock,
         through="Holding",
         related_name="custody_accounts",
         blank=True,
     )
+    '''
 
 class PurchasedStock(models.Model):
     id = models.BigAutoField(primary_key=True)
