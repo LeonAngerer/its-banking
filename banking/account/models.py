@@ -3,6 +3,7 @@ from decimal import Decimal
 
 # Create your models here.
 class Account(models.Model):
+    id = models.BigAutoField(primary_key=True)
     iban = models.CharField(max_length=34)
     accountNumber = models.CharField(max_length=34)
     label = models.CharField(max_length=255)
@@ -64,6 +65,7 @@ class CustodyAccount(Account):
     )
 
 class PurchasedStock(models.Model):
+    id = models.BigAutoField(primary_key=True)
     custody_account = models.ForeignKey(
         CustodyAccount,
         on_delete=models.CASCADE,
