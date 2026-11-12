@@ -37,7 +37,11 @@ class Person(models.Model):
     plz = models.CharField(max_length=20)
     city = models.CharField(max_length=100)
     street = models.CharField(max_length=255)
-    bank = models.ForeignKey(Bank, on_delete=models.PROTECT, related_name="people")
+    bank = models.ForeignKey(
+        Bank,
+        on_delete=models.PROTECT,
+        related_name="%(class)s_set",
+    )
 
     class Meta:
         abstract = True
@@ -71,5 +75,5 @@ class Customer(Person):
             ),
         )
     
-    def openAccoount(accountType: str) -> bool:
+    def openAccoount(self, accountType : str) -> bool:
         ...
