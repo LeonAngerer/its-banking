@@ -73,11 +73,13 @@ class PurchasedStock(models.Model):
         on_delete=models.CASCADE,
         related_name="purchased_stocks",
     )
+    '''
     stock = models.ForeignKey(
         "stockmarket.Stock",
         on_delete=models.PROTECT,
         related_name="purchase_lots",
     )
+    '''
 
     purchase_date = models.DateTimeField()
     purchase_price = models.DecimalField(max_digits=15, decimal_places=4)
