@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "account",
     "businessPartner",
     "standingOrder",
+    "stockMarket",
 ]
 
 MIDDLEWARE = [
